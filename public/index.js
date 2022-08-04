@@ -23,6 +23,8 @@ socket.on("chat-out", (data) => {
 function appDataToDiv(data) {
   const div = document.getElementById("chat");
   div.innerHTML += `<br> ${data.time} ${data.userName}: ${data.msj}`;
+
+  setTimeout((scrollpapi(), 3000));
 }
 
 function loadDataToDiv(data) {
@@ -39,4 +41,9 @@ function loadFirstData() {
       loadDataToDiv(data.data);
     })
     .catch((e) => console.log(e));
+}
+
+function scrollpapi() {
+  const scroll = document.getElementById("chat");
+  scroll.scrollTop = scroll.scrollHeight;
 }
