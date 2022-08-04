@@ -6,6 +6,7 @@ if (userName == null) {
 
 document.getElementById("userName").innerHTML = `Welcome ${userName}`;
 const socket = io();
+loadFirstData();
 
 const btnSend = document.getElementById("send");
 
@@ -22,4 +23,20 @@ socket.on("chat-out", (data) => {
 function appDataToDiv(data) {
   const div = document.getElementById("chat");
   div.innerHTML += `<br> ${data.time} ${data.userName}: ${data.msj}`;
+}
+
+function loadDataToDiv(data) {
+  console.log(data);
+  data.forEach((d) => {
+    appDataToDiv(d);
+  });
+}
+
+function loadFirstData() {
+  fetch("/data")
+    .then((data) => data.json())
+    .then((data) => {
+      loadDataToDiv(data.data);
+    })
+    .catch((e) => console.log(e));
 }
