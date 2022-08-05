@@ -3,7 +3,7 @@ const knex = require("knex")(options);
 const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
-const fs = require("fs");
+
 const app = express();
 
 app.set("views", "./views");
@@ -13,7 +13,6 @@ app.use(express.urlencoded({ extended: "true" }));
 
 const server = http.createServer(app);
 const io = new Server(server);
-const chats = require("./chats/chats.json");
 
 app.use("/public", express.static(__dirname + "/public"));
 
@@ -38,7 +37,7 @@ io.on("connection", (socket) => {
       userName: data.userName,
       time,
     };
-    chats.push(dataOut);
+
     knex("chats")
       .insert(dataOut)
       .then(() => console.log("se enviaron los chats"))
