@@ -38,7 +38,7 @@ function loadFirstData() {
   fetch("/data")
     .then((data) => data.json())
     .then((data) => {
-      loadDataToDiv(data.data);
+      loadDataToDiv(data);
     })
     .catch((e) => console.log(e));
 }

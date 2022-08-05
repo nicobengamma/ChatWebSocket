@@ -1,3 +1,5 @@
+const options = require("./options/db_sqlite");
+const knex = require("knex")(options);
 const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
@@ -20,12 +22,15 @@ app.get("/", (req, res) => {
 });
 
 app.get("/data", (req, res) => {
-  const data = chats;
-  res.json({ data });
+  knex
+    .from("chats")
+    .select("*")
+    .then((rows) => {
+      res.json(rows);
+    });
 });
 
 io.on("connection", (socket) => {
-  console.log("somebody connected");
   socket.on("chat-in", (data) => {
     const time = new Date().toLocaleTimeString();
     const dataOut = {
@@ -34,8 +39,10 @@ io.on("connection", (socket) => {
       time,
     };
     chats.push(dataOut);
-    fs.writeFileSync("chats/chats.json", JSON.stringify(chats));
-    console.log(dataOut);
+    knex("chats")
+      .insert(dataOut)
+      .then(() => console.log("se enviaron los chats"))
+      .catch((e) => console.log(e));
     io.sockets.emit("chat-out", dataOut);
   });
 });
