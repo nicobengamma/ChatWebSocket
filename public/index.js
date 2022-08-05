@@ -4,16 +4,17 @@ if (userName == null) {
   sessionStorage.setItem("userName", userName);
 }
 
-document.getElementById("userName").innerHTML = `Welcome ${userName}`;
+document.getElementById("userName").innerHTML = `${userName}`;
 const socket = io();
 loadFirstData();
 
 const btnSend = document.getElementById("send");
 
 btnSend.onclick = (e) => {
-  e.preventDefault();
   const msj = document.getElementById("msj").value;
   socket.emit("chat-in", { msj, userName });
+  formulario.reset();
+  e.preventDefault();
 };
 
 socket.on("chat-out", (data) => {
@@ -22,7 +23,7 @@ socket.on("chat-out", (data) => {
 
 function appDataToDiv(data) {
   const div = document.getElementById("chat");
-  div.innerHTML += `<br> ${data.time} ${data.userName}: ${data.msj}`;
+  div.innerHTML += `<br> <small>${data.time}</small> <b>${data.userName}:</b> <small>${data.msj}</small>`;
 
   setTimeout((scrollpapi(), 3000));
 }

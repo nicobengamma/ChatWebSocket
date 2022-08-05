@@ -17,13 +17,21 @@
   <body>
     <!---------     sfasdasdsadas      -->
 
-    <div id="boxChat" class="card col-md-4 m-5">
-      <div class="card-header"><h5 id="userName">Usuario</h5></div>
+    <div id="boxChat" class="card col-md-4 m-5 p-2">
+      <div id="cabezal" class="card-header">
+        <img
+          class="userImg"
+          src="https://svgsilh.com/svg/27716.svg"
+          alt=""
+          height="35px"
+        />
+        <h5 id="userName">Usuario</h5>
+      </div>
       <div id="chat"></div>
       <div class="card-footer text-muted">
-        <form class="input" action="">
+        <form id="formulario" class="input" action="">
           <input id="msj" name="msj" />
-          <button class="" id="send">Enviar</button>
+          <button class="bSend" id="send">ENVIAR</button>
         </form>
       </div>
     </div>
