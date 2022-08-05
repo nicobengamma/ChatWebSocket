@@ -20,7 +20,6 @@ btnSend.onclick = (e) => {
 socket.on("chat-out", (data) => {
   appDataToDiv(data);
 });
-
 function appDataToDiv(data) {
   const div = document.getElementById("chat");
   div.innerHTML += `<br> <small>${data.time}</small> <b>${data.userName}:</b> <small>${data.msj}</small>`;
@@ -48,3 +47,10 @@ function scrollpapi() {
   const scroll = document.getElementById("chat");
   scroll.scrollTop = scroll.scrollHeight;
 }
+
+const mensaje = document.getElementById("msj");
+mensaje.addEventListener("keypress", function () {
+  socket.emit("tiping", userName);
+  // const tipean2 = document.getElementById("qTiping");
+  // // tipean2.innerHTML =
+});

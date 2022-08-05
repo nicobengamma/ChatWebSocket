@@ -1,3 +1,4 @@
+const fs = require("fs");
 const options = require("./options/db_sqlite");
 const knex = require("knex")(options);
 const express = require("express");
@@ -37,7 +38,6 @@ io.on("connection", (socket) => {
       userName: data.userName,
       time,
     };
-
     knex("chats")
       .insert(dataOut)
       .then(() => console.log("se enviaron los chats"))
@@ -45,6 +45,11 @@ io.on("connection", (socket) => {
     io.sockets.emit("chat-out", dataOut);
   });
 });
+// socket.on("tiping", (userName) => {
+//   const tiping = { tiping: userName };
+//   fs.writeFileSync("tipingNow/tipingNow.json", JSON.stringify(tiping));
+//   socket.broadcast.emit("tiping", tiping);
+// });
 
 server.listen(8080, () => {
   console.log("Running...");
