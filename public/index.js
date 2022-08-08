@@ -49,8 +49,15 @@ function scrollpapi() {
 }
 
 const mensaje = document.getElementById("msj");
-mensaje.addEventListener("keypress", function () {
+mensaje.addEventListener("keypress", () => {
   socket.emit("tiping", userName);
-  // const tipean2 = document.getElementById("qTiping");
-  // // tipean2.innerHTML =
+});
+
+const tipean2 = document.getElementById("tipean2");
+
+socket.on("tiping", (userName) => {
+  tipean2.innerHTML = `<b>${userName}</b> Esta Escribiendo...`;
+  setTimeout(() => {
+    tipean2.innerHTML = `Todo tranquilo por aqui....`;
+  }, 1000);
 });

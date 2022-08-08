@@ -44,12 +44,12 @@ io.on("connection", (socket) => {
       .catch((e) => console.log(e));
     io.sockets.emit("chat-out", dataOut);
   });
+  socket.on("tiping", (userName) => {
+    // const tiping = { tiping: userName };
+    // fs.writeFileSync("tipingNow/tipingNow.json", JSON.stringify(tiping));
+    socket.broadcast.emit("tiping", userName);
+  });
 });
-// socket.on("tiping", (userName) => {
-//   const tiping = { tiping: userName };
-//   fs.writeFileSync("tipingNow/tipingNow.json", JSON.stringify(tiping));
-//   socket.broadcast.emit("tiping", tiping);
-// });
 
 server.listen(8080, () => {
   console.log("Running...");
