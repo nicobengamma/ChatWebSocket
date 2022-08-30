@@ -1,9 +1,9 @@
-const fs = require("fs");
 const options = require("./options/db_sqlite");
 const knex = require("knex")(options);
 const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
+// const routerNorm = require("./routerNorm");
 
 const app = express();
 
@@ -11,6 +11,7 @@ app.set("views", "./views");
 app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.urlencoded({ extended: "true" }));
+// app.use("/normalizar", routerNorm);
 
 const server = http.createServer(app);
 const io = new Server(server);
